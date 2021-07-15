@@ -5,7 +5,8 @@ body {
   height: 100vh;
 }
 
-.container, .item {
+.container,
+.item {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -38,9 +39,9 @@ body {
   background-color: blanchedalmond;
   border: 1px solid darkgrey;
   color: gray;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: medium;
-  font-weight:600;
+  font-weight: 600;
 }
 
 .item-dragged {
@@ -48,4 +49,9 @@ body {
   transition: none;
   opacity: 66%;
   z-index: 1;
+}
+
+.item-selected {
+  background-color: burlywood;
+  color: darkgoldenrod;
 }

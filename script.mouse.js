@@ -1,9 +1,9 @@
-items.forEach((item) => {
-    item.onmousedown = (e) => {
-      e.preventDefault();
-      reorderstart(e.target, e.clientY);
-    };
-  });
+for (let item of items) {
+  item.onmousedown = (e) => {
+    e.preventDefault();
+    reorderstart(e.target);
+  };
+}
 
 document.onmousemove = (e) => reordermove(e.clientY);
 

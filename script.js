@@ -1,5 +1,7 @@
 const container = document.querySelector(".container");
 let items = [...container.querySelectorAll(".item")];
+let candidateItem = null;
+let selectedItem = null;
 let draggedItem = null;
 let initialItemY = 0;
 let initialClientY = 0;
@@ -21,32 +23,41 @@ const sortItemsByReferenceY = () =>
 
 const layoutItems = () => {
   let y = 0;
-  for (var item of items) {
+  for (let item of items) {
     if (item !== draggedItem) setTranslateY(item, y);
     y += item.offsetHeight;
   }
 };
 
-const reorderstart = (item, clientY) => {
-  draggedItem = item;
-  draggedItem.classList.add("item-dragged");
-  initialItemY = getTranslateY(draggedItem);
-  currentClientY = clientY + window.scrollY;
-  initialClientY = currentClientY;
-};
+const reorderstart = (item) => (candidateItem = item);
 
 const reordermove = (clientY) => {
-  if (draggedItem === null) return;
-  currentClientY = clientY + window.scrollY;
-  const newY = initialItemY + (currentClientY - initialClientY);
-  setTranslateY(draggedItem, newY);
-  sortItemsByReferenceY();
-  layoutItems();
+  if (candidateItem !== null) { //start dragging
+    draggedItem = candidateItem;
+    draggedItem.classList.add("item-dragged");
+    initialItemY = getTranslateY(draggedItem);
+    initialClientY = clientY + window.scrollY;
+    candidateItem = null;
+  }
+  if (draggedItem !== null) { //dragging
+    currentClientY = clientY + window.scrollY;
+    const newY = initialItemY + (currentClientY - initialClientY);
+    setTranslateY(draggedItem, newY);
+    sortItemsByReferenceY();
+    layoutItems();
+  }
 };
 
 const reorderend = () => {
-  if (draggedItem === null) return;
-  draggedItem.classList.remove("item-dragged");
-  draggedItem = null;
-  layoutItems();
+  if (candidateItem !== null) { //click event
+    if (selectedItem !== null) selectedItem.classList.remove("item-selected");
+    selectedItem = candidateItem;
+    selectedItem.classList.add("item-selected");
+    candidateItem = null;
+  }
+  if (draggedItem !== null) { //stop dragging
+    draggedItem.classList.remove("item-dragged");
+    draggedItem = null;
+    layoutItems();
+  }
 };
