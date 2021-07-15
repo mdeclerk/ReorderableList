@@ -38,12 +38,12 @@ const reorderstart = (item, clientY) => {
 }
 
 const reordermove = (clientY) => {
-  if (candidateItem !== null) { //start dragging
+  if (candidateItem) { //start dragging
     draggedItem = candidateItem;
     draggedItem.classList.add("item-dragged");
     candidateItem = null;
   }
-  if (draggedItem !== null) { //dragging
+  if (draggedItem) { //dragging
     currentClientY = clientY + window.scrollY;
     const newY = initialItemY + (currentClientY - initialClientY);
     setTranslateY(draggedItem, newY);
@@ -53,13 +53,13 @@ const reordermove = (clientY) => {
 };
 
 const reorderend = () => {
-  if (candidateItem !== null) { //click event
-    if (selectedItem !== null) selectedItem.classList.remove("item-selected");
+  if (candidateItem) { //click event
+    if (selectedItem) selectedItem.classList.remove("item-selected");
     selectedItem = candidateItem;
     selectedItem.classList.add("item-selected");
     candidateItem = null;
   }
-  if (draggedItem !== null) { //stop dragging
+  if (draggedItem) { //stop dragging
     draggedItem.classList.remove("item-dragged");
     draggedItem = null;
     layoutItems();
