@@ -15,13 +15,13 @@ const getTranslateY = (item) =>
 const setTranslateY = (item, y) =>
   (item.style.transform = "translateY(" + y + "px)");
 
-const getItemReferenceY = (item) => {
-  if (item === draggedItem) return currentClientY - container.offsetTop;
-  return getTranslateY(item) + item.offsetHeight / 2;
-};
-
-const sortItemsByReferenceY = () =>
-  items.sort((a, b) => getItemReferenceY(a) - getItemReferenceY(b));
+const sortItemsByReferenceY = () => {
+  const refY = (item) => {
+    if (item === draggedItem) return currentClientY - container.offsetTop;
+    return getTranslateY(item) + item.offsetHeight / 2;
+  };
+  items.sort((a, b) => refY(a) - refY(b));
+}
 
 const layoutItems = () => {
   let y = 0;
