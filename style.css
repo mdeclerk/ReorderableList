@@ -1,0 +1,51 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container, .item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  position: relative;
+}
+
+.container-style {
+  height: 80%;
+  width: 60%;
+  background-color: lightgray;
+  border: 2px dashed darkgray;
+}
+
+.item {
+  cursor: grab;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  transition: transform 0.2s ease-out;
+}
+
+.item-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blanchedalmond;
+  border: 1px solid darkgrey;
+  color: gray;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  font-weight:600;
+}
+
+.item-dragged {
+  cursor: grabbing;
+  transition: none;
+  opacity: 66%;
+  z-index: 1;
+}
