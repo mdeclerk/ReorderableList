@@ -5,6 +5,6 @@ items.forEach((item) => {
     };
   });
 
-  document.onmousemove = (e) => reordermove(e.clientY);
+document.onmousemove = (e) => reordermove(e.clientY);
 
-  document.onmouseup = () => reorderend();
+document.onmouseup = () => reorderend();

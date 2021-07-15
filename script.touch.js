@@ -5,6 +5,6 @@ items.forEach((item) => {
     };
   });
 
-  document.ontouchmove = (e) => reordermove(e.touches[0].clientY);
+document.ontouchmove = (e) => reordermove(e.touches[0].clientY);
 
-  document.ontouchend = () => reorderend();
+document.ontouchend = () => reorderend();
