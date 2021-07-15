@@ -5,10 +5,6 @@ let initialItemY = 0;
 let initialClientY = 0;
 let currentClientY = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-  layoutItems();
-});
-
 const getTranslateY = (item) =>
   parseFloat(item.style.transform.match(/-?\d+\.?\d*/)[0]);
 
