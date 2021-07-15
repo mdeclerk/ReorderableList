@@ -1,8 +1,10 @@
 const container = document.querySelector(".container");
 let items = [...container.querySelectorAll(".item")];
+
 let candidateItem = null;
 let selectedItem = null;
 let draggedItem = null;
+
 let initialItemY = 0;
 let initialClientY = 0;
 let currentClientY = 0;
@@ -29,14 +31,16 @@ const layoutItems = () => {
   }
 };
 
-const reorderstart = (item) => (candidateItem = item);
+const reorderstart = (item, clientY) => {
+  candidateItem = item;
+  initialItemY = getTranslateY(item);
+  initialClientY = clientY + window.scrollY;
+}
 
 const reordermove = (clientY) => {
   if (candidateItem !== null) { //start dragging
     draggedItem = candidateItem;
     draggedItem.classList.add("item-dragged");
-    initialItemY = getTranslateY(draggedItem);
-    initialClientY = clientY + window.scrollY;
     candidateItem = null;
   }
   if (draggedItem !== null) { //dragging

@@ -1,7 +1,7 @@
 for (let item of items) {
   item.ontouchstart = (e) => {
     e.preventDefault();
-    reorderstart(e.target);
+    reorderstart(e.target, e.touches[0].clientY);
   };
 }
 

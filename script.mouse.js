@@ -1,7 +1,7 @@
 for (let item of items) {
   item.onmousedown = (e) => {
     e.preventDefault();
-    reorderstart(e.target);
+    reorderstart(e.target, e.clientY);
   };
 }
 
