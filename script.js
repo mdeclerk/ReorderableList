@@ -13,31 +13,28 @@ const getTranslateY = (item) =>
   parseFloat(item.style.transform.match(/-?\d+\.?\d*/)[0]);
 
 const setTranslateY = (item, y) =>
-  (item.style.transform = "translateY(" + y + "px)");
+  (item.style.transform = `translateY(${y}px)`);
 
-const sortItemsByReferenceY = () => {
-  const refY = (item) => {
+const sortItemsByY = () => {
+  const calcReferenceY = (item) => {
     if (item === draggedItem) return currentClientY - container.offsetTop;
     return getTranslateY(item) + item.offsetHeight / 2;
   };
-  items.sort((a, b) => refY(a) - refY(b));
+  items.sort((a, b) => calcReferenceY(a) - calcReferenceY(b));
 }
 
-const layoutItems = () => {
-  let y = 0;
-  for (let item of items) {
-    if (item !== draggedItem) setTranslateY(item, y);
-    y += item.offsetHeight;
-  }
-};
+const layoutItems = () => items.reduce((y, item) => {
+  if (item !== draggedItem) setTranslateY(item, y);
+  return y + item.offsetHeight;
+}, 0);
 
-const reorderstart = (item, clientY) => {
+const reorderStart = (item, clientY) => {
   candidateItem = item;
   initialItemY = getTranslateY(item);
   initialClientY = clientY + window.scrollY;
 }
 
-const reordermove = (clientY) => {
+const reorderMove = (clientY) => {
   if (candidateItem) { //start dragging
     draggedItem = candidateItem;
     draggedItem.classList.add("item-dragged");
@@ -47,12 +44,12 @@ const reordermove = (clientY) => {
     currentClientY = clientY + window.scrollY;
     const newY = initialItemY + (currentClientY - initialClientY);
     setTranslateY(draggedItem, newY);
-    sortItemsByReferenceY();
+    sortItemsByY();
     layoutItems();
   }
 };
 
-const reorderend = () => {
+const reorderEnd = () => {
   if (candidateItem) { //click event
     if (selectedItem) selectedItem.classList.remove("item-selected");
     selectedItem = candidateItem;

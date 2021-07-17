@@ -1,10 +1,10 @@
 for (let item of items) {
   item.onmousedown = (e) => {
     e.preventDefault();
-    reorderstart(e.target, e.clientY);
+    reorderStart(e.target, e.clientY);
   };
 }
 
-document.onmousemove = (e) => reordermove(e.clientY);
+document.onmousemove = (e) => reorderMove(e.clientY);
 
-document.onmouseup = () => reorderend();
+document.onmouseup = () => reorderEnd();
